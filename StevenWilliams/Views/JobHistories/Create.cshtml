@@ -40,13 +40,44 @@
             </div>
         </div>
 
+
         @{
-                var db = new StevenWilliams.Models.PortfolioModel();
-                var skills = db.Skills.ToList();
+    var db = new StevenWilliams.Models.PortfolioModel();
+    var skills = db.Skills.OrderBy(x => x.ID).ToList();
         }
 
-        @Html.ListBoxFor(model => skills, new SelectList(skills, "ID", "Name"))
+        @if (skills.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
 
+                    </th>
+                    <th>Skill</th>
+                </tr>
+                @foreach (var item in skills)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBox("cbSkill")
+                            @Html.HiddenFor(model => item.ID)                            
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Name)
+                        </td>
+                    </tr>                    
+                }
+            </table>
+        }
+        @*<div class="form-group">
+            <label class="control-label col-md-2">Skills</label>
+            <div class="col-md-10">
+                @if (skills.Count > 0)
+                {
+                    @Html.ListBoxFor(model => skills, new SelectList(skills, "ID", "Name"), htmlAttributes: new { @class = "form-control" })
+                }
+            </div>
+        </div>*@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />

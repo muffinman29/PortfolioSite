@@ -11,7 +11,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Job History</h4>
         <hr />
@@ -37,8 +37,26 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control" })               
+                @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @{
+            var db = new StevenWilliams.Models.PortfolioModel();
+            var skills = db.Skills.ToList();
+        }
+        <div class="form-group">
+            <label class="control-label col-md-2">Skills</label>
+            <div class="col-md-10">
+                @if (skills.Count > 0)
+                {
+                    var selectedItems = (from p in db.Skills join c in db.JobSkillXRs on p.ID equals c.Skill.ID where c.Job.ID == Model.ID select p.ID.ToString()).ToArray();
+                    @Html.ListBoxFor(model => skills, new MultiSelectList(skills, "ID", "Name", selectedItems), htmlAttributes: new { @class = "form-control" })
+                    
+                    
+                    
+                }
             </div>
         </div>
 

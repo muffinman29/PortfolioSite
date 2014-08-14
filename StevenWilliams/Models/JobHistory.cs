@@ -23,6 +23,6 @@ namespace StevenWilliams.Models
         [StringLength(2000)]
         public string Description { get; set; }
 
-        public List<JobSkillXR> History_ID { get; set; }
+        public virtual List<JobSkillXR> History_ID { get; set; }
     }
 }

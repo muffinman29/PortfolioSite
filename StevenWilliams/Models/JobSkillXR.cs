@@ -7,11 +7,10 @@ namespace StevenWilliams.Models
 {
     public class JobSkillXR
     {
-
         public int ID { get; set; }
 
-        public JobHistory Job { get; set; }
+        public virtual JobHistory Job { get; set; }
 
-        public Skill Skill { get; set; }
+        public virtual Skill Skill { get; set; }
     }
 }

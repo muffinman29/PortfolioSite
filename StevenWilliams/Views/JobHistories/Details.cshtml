@@ -36,10 +36,34 @@
         </dd>
 
     </dl>
-    @foreach (var test in Model.History_ID)
-    {
-       @Html.DisplayFor(model => test.Skill.Name) <br/>
-        
+
+    @if (Model.History_ID != null)
+    {   
+        <table class="table">
+            <tr>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Years
+                </th>
+            </tr>
+            @foreach (var test in Model.History_ID)
+            {
+                <tr>
+
+
+                    <td>
+                        @Html.DisplayFor(model => test.Skill.Name)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(model => test.Skill.Years)
+                    </td>
+                </tr>
+            }
+
+        </table>        
     }
 </div>
 <p>

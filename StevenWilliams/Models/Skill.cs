@@ -15,6 +15,6 @@ namespace StevenWilliams.Models
 
         public int Years { get; set; }
 
-        public List<JobSkillXR> Skill_ID { get; set; }
+        public virtual List<JobSkillXR> Skill_ID { get; set; }
     }
 }

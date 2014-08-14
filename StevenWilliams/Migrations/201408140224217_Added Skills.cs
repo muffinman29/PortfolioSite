@@ -7,16 +7,16 @@ namespace StevenWilliams.Migrations
     {
         public override void Up()
         {
-            //CreateTable(
-            //    "dbo.JobHistory",
-            //    c => new
-            //        {
-            //            ID = c.Int(nullable: false, identity: true),
-            //            Company = c.String(nullable: false, maxLength: 200),
-            //            YearsExperience = c.Int(nullable: false),
-            //            Description = c.String(nullable: false, maxLength: 2000),
-            //        })
-            //    .PrimaryKey(t => t.ID);
+            CreateTable(
+                "dbo.JobHistory",
+                c => new
+                    {
+                        ID = c.Int(nullable: false, identity: true),
+                        Company = c.String(nullable: false, maxLength: 200),
+                        YearsExperience = c.Int(nullable: false),
+                        Description = c.String(nullable: false, maxLength: 2000),
+                    })
+                .PrimaryKey(t => t.ID);
             
             CreateTable(
                 "dbo.Skills",
