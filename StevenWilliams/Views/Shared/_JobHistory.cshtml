@@ -1,0 +1,32 @@
+﻿@model IEnumerable<StevenWilliams.Models.JobHistory>
+
+<table class="table table-striped table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.YearsExperience)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Company)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearsExperience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>           
+        </tr>
+    }
+
+</table>

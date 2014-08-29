@@ -45,20 +45,50 @@
         @{
             var db = new StevenWilliams.Models.PortfolioModel();
             var skills = db.Skills.ToList();
+            var selectedItems = (from p in db.Skills join c in db.JobSkillXRs on p.ID equals c.Skill.ID where c.Job.ID == Model.ID select p.ID.ToString()).ToArray();
         }
-        <div class="form-group">
+        @*<div class="form-group">
             <label class="control-label col-md-2">Skills</label>
             <div class="col-md-10">
                 @if (skills.Count > 0)
                 {
-                    var selectedItems = (from p in db.Skills join c in db.JobSkillXRs on p.ID equals c.Skill.ID where c.Job.ID == Model.ID select p.ID.ToString()).ToArray();
+                    
                     @Html.ListBoxFor(model => skills, new MultiSelectList(skills, "ID", "Name", selectedItems), htmlAttributes: new { @class = "form-control" })
                     
                     
                     
                 }
             </div>
-        </div>
+        </div>*@
+
+        @{
+                //var db = new StevenWilliams.Models.PortfolioModel();
+                var allSkills = db.Skills.OrderBy(x => x.ID).ToList();
+        }
+
+        @if (skills.Count > 0)
+        {
+            <table class="table">
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>Skill</th>
+                </tr>
+                @foreach (var item in skills)
+                {
+                    <tr>
+                        <td>
+                            @Html.CheckBox("cbSkill", selectedItems.Any(x => x == item.ID.ToString()))
+                            @Html.HiddenFor(model => item.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => item.Name)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

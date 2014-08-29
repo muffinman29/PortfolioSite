@@ -1,0 +1,25 @@
+﻿@model IEnumerable<StevenWilliams.Models.Skill>
+
+<table class="table table-striped table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Years)
+        </th>        
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Years)
+            </td>           
+        </tr>
+    }
+
+</table>

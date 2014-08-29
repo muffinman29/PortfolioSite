@@ -56,25 +56,8 @@ namespace StevenWilliams.Controllers
 
                 db.SaveChanges();
 
-                Dictionary<int, bool> test = new Dictionary<int, bool>();
-
-                var cbSkillArray = FixCheckBoxValue(collection["cbSkill"].Split(new char[] {','}));                
-
-                var hfSkillIdArray = collection["item.ID"].Split(new char[] {','});
-
-                for (int i = 0; i < cbSkillArray.Length; i++)
-                {
-                    test.Add(Convert.ToInt32(hfSkillIdArray[i]), Convert.ToBoolean(cbSkillArray[i]));
-                }
-
-                foreach (var selectedItems in test)
-                {
-                    if (selectedItems.Value)
-                    {
-                        db.JobSkillXRs.Add(new JobSkillXR { Skill = db.Skills.Where(x => x.ID == selectedItems.Key).First(), Job = jobHistory });
-                    }
-                }
-                db.SaveChanges();
+                UpdateSkills(jobHistory, collection);
+               
                
                 return RedirectToAction("Index");
             }
@@ -99,6 +82,28 @@ namespace StevenWilliams.Controllers
             return list.ToArray();
         }
 
+        private void UpdateSkills(JobHistory jobHistory, FormCollection collection)
+        {
+            Dictionary<int, bool> test = new Dictionary<int, bool>();
+
+            var cbSkillArray = FixCheckBoxValue(collection["cbSkill"].Split(new char[] { ',' }));
+
+            var hfSkillIdArray = collection["item.ID"].Split(new char[] { ',' });
+
+            for (int i = 0; i < cbSkillArray.Length; i++)
+            {
+                test.Add(Convert.ToInt32(hfSkillIdArray[i]), Convert.ToBoolean(cbSkillArray[i]));
+            }
+
+            foreach (var selectedItems in test)
+            {
+                if (selectedItems.Value)
+                {
+                    db.JobSkillXRs.Add(new JobSkillXR { Skill = db.Skills.Where(x => x.ID == selectedItems.Key).First(), Job = jobHistory });
+                }
+            }
+            db.SaveChanges();
+        }
         // GET: JobHistories/Edit/5
         public ActionResult Edit(int? id)
         {
@@ -134,19 +139,21 @@ namespace StevenWilliams.Controllers
                     db.SaveChanges();
                 }
 
+                UpdateSkills(jobHistory,collection);
 
-                if (collection["skills"] != null)
-                {
-                    var selectedSkills = collection["skills"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    foreach (var item in selectedSkills)
-                    {
-                        int skillId = Convert.ToInt32(item);
-                        db.JobSkillXRs.Add(new JobSkillXR { Skill = db.Skills.Where(x => x.ID == skillId).First(), Job = jobHistory });
-                    }
+                //if (collection["skills"] != null)
+                //{
+                //    var selectedSkills = collection["skills"].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
-                    db.SaveChanges();
-                }
+                //    foreach (var item in selectedSkills)
+                //    {
+                //        int skillId = Convert.ToInt32(item);
+                //        db.JobSkillXRs.Add(new JobSkillXR { Skill = db.Skills.Where(x => x.ID == skillId).First(), Job = jobHistory });
+                //    }
+
+                //    db.SaveChanges();
+                //}
                 
 
                 return RedirectToAction("Index");

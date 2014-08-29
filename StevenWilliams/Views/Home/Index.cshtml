@@ -1,0 +1,14 @@
+﻿@model StevenWilliams.Models.HomePageViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="jumbotron">
+    <h1>put stuff here</h1>    
+    <p>put a background image or something here</p>
+</div>
+
+@Html.Partial("_JobHistory", Model.JobHistories)
+
+@Html.Partial("_Skills", Model.Skills)
+
